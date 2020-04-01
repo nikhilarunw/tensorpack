@@ -55,7 +55,7 @@ estimator = Estimator(image_name, role=sagemaker_iam_role, output_path=output_pa
                       train_instance_count=num_nodes,
                       # train_instance_type=instance_type,
                       train_instance_type='local_gpu',
-                      sagemaker_session=sess,
+                      # sagemaker_session=sess,
                       train_volume_size=125,
                       base_job_name=job_name,
                       #   subnets=['subnet-21ac2f2e'],
