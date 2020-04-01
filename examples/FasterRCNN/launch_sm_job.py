@@ -13,7 +13,7 @@ def get_str(cmd):
     return str(content)[2:-3]
 
 account = get_str("echo $(aws sts get-caller-identity --query Account --output text)")
-region = get_str("echo $(aws configure get region)")
+region = 'ap-southeast-1' #get_str("echo $(aws configure get region)")
 image = str(sys.argv[1])
 sess = sage.Session()
 image_name=f"{account}.dkr.ecr.{region}.amazonaws.com/{image}"
