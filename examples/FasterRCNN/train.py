@@ -51,8 +51,8 @@ if __name__ == '__main__':
         logger.warn("TF<1.6 has a bug which may lead to crash in FasterRCNN if you're unlucky.")
 
     args, _ = parser.parse_known_args()
-    if args.config:
-        cfg.update_args(args.config)
+    # if args.config:
+    #     cfg.update_args(args.config)
     register_coco(cfg.DATA.BASEDIR)  # add COCO datasets to the registry
     register_balloon(cfg.DATA.BASEDIR)  # add the demo balloon datasets to the registry
 
