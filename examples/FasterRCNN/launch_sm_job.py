@@ -45,7 +45,7 @@ output_path = f's3://{s3_bucket}/{prefix}/sagemaker_training_release'
 
 data_channels = {'train': train}
 
-hyperparams = {"sagemaker_use_mpi": "True",
+hyperparams = {"sagemaker_use_mpi": "False",
                "sagemaker_process_slots_per_host": num_gpus,
                "num_gpus":num_gpus,
                "num_nodes": num_nodes,
