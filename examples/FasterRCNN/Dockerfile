@@ -12,6 +12,7 @@ ADD ./data /opt/ml/input/data
 RUN mkdir -p /opt/ml/model
 ADD ./COCO-MaskRCNN-R50FPN2x.npz /opt/ml/model/COCO-MaskRCNN-R50FPN2x.npz
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64/:/usr/local/cuda/lib/:/usr/local/cuda-10.0/compat/
+ENV SAGEMAKER_PROGRAM train.py
 CMD python /opt/ml/code/train.py --config DATA.BASEDIR=/opt/ml/input/data MODE_FPN=True \
 	"DATA.VAL=('balloon_val',)"  "DATA.TRAIN=('balloon_train',)" \
 	TRAIN.BASE_LR=1e-3 TRAIN.EVAL_PERIOD=0 "TRAIN.LR_SCHEDULE=[1000]" \
