@@ -16,7 +16,7 @@ account = get_str("echo $(aws sts get-caller-identity --query Account --output t
 region = 'ap-southeast-1' #get_str("echo $(aws configure get region)")
 image = str(sys.argv[1])
 sess = sage.Session()
-image_name=f"{account}.dkr.ecr.{region}.amazonaws.com/{image}"
+image_name="393782509758.dkr.ecr.ap-southeast-1.amazonaws.com/invoice-extraction:latest" #f"{account}.dkr.ecr.{region}.amazonaws.com/{image}"
 sagemaker_iam_role = str(sys.argv[2])
 num_gpus = 1
 num_nodes = 1
@@ -51,8 +51,7 @@ hyperparams = {"sagemaker_use_mpi": "False",
                "num_nodes": num_nodes,
                "load": "COCO-MaskRCNN-R50FPN2x.npz",
                "logdir": "/opt/ml/output",
-               "custom_mpi_cmds": custom_mpi_cmds,
-               "config": 'DATA.BASEDIR=/opt/ml/input/data MODE_FPN=True "DATA.VAL=(\'balloon_val\',)"  "DATA.TRAIN=(\'balloon_train\',)" TRAIN.BASE_LR=1e-3 TRAIN.EVAL_PERIOD=0 "TRAIN.LR_SCHEDULE=[1000]" "PREPROC.TRAIN_SHORT_EDGE_SIZE=[600,1200]" TRAIN.CHECKPOINT_PERIOD=1 DATA.NUM_WORKERS=1'}
+               "custom_mpi_cmds": custom_mpi_cmds}
 
 estimator = Estimator(image_name, role=sagemaker_iam_role, output_path=output_path,
                       train_instance_count=num_nodes,

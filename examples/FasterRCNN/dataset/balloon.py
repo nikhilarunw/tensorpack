@@ -8,6 +8,7 @@ __all__ = ["register_balloon"]
 
 class BalloonDemo(DatasetSplit):
     def __init__(self, base_dir, split):
+        print(f"base_dir={base_dir} split={split}")
         assert split in ["train", "val"]
         base_dir = os.path.expanduser(base_dir)
         self.imgdir = os.path.join(base_dir, split)

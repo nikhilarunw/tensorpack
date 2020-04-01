@@ -75,6 +75,7 @@ class DatasetRegistry():
 
     @staticmethod
     def register(name, func):
+        print(f"{name} {func}")
         """
         Args:
             name (str): the name of the dataset split, e.g. "coco_train2017"
@@ -115,4 +116,5 @@ class DatasetRegistry():
         Returns:
             value
         """
+        print(f"name={name} key={key}")
         return DatasetRegistry._metadata_registry[name][key]
