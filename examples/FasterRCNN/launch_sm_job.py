@@ -49,7 +49,10 @@ hyperparams = {"sagemaker_use_mpi": "False",
                "sagemaker_process_slots_per_host": num_gpus,
                "num_gpus":num_gpus,
                "num_nodes": num_nodes,
-               "custom_mpi_cmds": custom_mpi_cmds}
+               "load": "COCO-MaskRCNN-R50FPN2x.npz",
+               "logdir": "/opt/ml/output"
+               "custom_mpi_cmds": custom_mpi_cmds,
+               "config": 'DATA.BASEDIR=/opt/ml/input/data MODE_FPN=True "DATA.VAL=(\'balloon_val\',)"  "DATA.TRAIN=(\'balloon_train\',)" TRAIN.BASE_LR=1e-3 TRAIN.EVAL_PERIOD=0 "TRAIN.LR_SCHEDULE=[1000]" "PREPROC.TRAIN_SHORT_EDGE_SIZE=[600,1200]" TRAIN.CHECKPOINT_PERIOD=1 DATA.NUM_WORKERS=1'}
 
 estimator = Estimator(image_name, role=sagemaker_iam_role, output_path=output_path,
                       train_instance_count=num_nodes,

@@ -3,7 +3,7 @@
 # File: train.py
 
 import argparse
-
+import os
 from tensorpack import *
 from tensorpack.tfutils import collect_env_info
 from tensorpack.tfutils.common import get_tf_version_tuple
@@ -28,7 +28,19 @@ if __name__ == '__main__':
     # However its limitation is you cannot pass a lambda function to subprocesses.
     import multiprocessing as mp
     mp.set_start_method('spawn')
+
     parser = argparse.ArgumentParser()
+
+    # hyperparameters sent by the client are passed as command-line arguments to the script.
+    parser.add_argument('--epochs', type=int, default=10)
+    parser.add_argument('--batch_size', type=int, default=100)
+    parser.add_argument('--learning_rate', type=float, default=0.1)
+
+    # input data and model directories
+    parser.add_argument('--model_dir', type=str)
+    parser.add_argument('--train', type=str, default=os.environ.get('SM_CHANNEL_TRAIN'))
+    parser.add_argument('--test', type=str, default=os.environ.get('SM_CHANNEL_TEST'))
+    
     parser.add_argument('--load', help='Load a model to start training from. It overwrites BACKBONE.WEIGHTS')
     parser.add_argument('--logdir', help='Log directory. Will remove the old one if already exists.',
                         default='train_log/maskrcnn')
@@ -38,7 +50,7 @@ if __name__ == '__main__':
         # https://github.com/tensorflow/tensorflow/issues/14657
         logger.warn("TF<1.6 has a bug which may lead to crash in FasterRCNN if you're unlucky.")
 
-    args = parser.parse_args()
+    args, _ = parser.parse_known_args()
     if args.config:
         cfg.update_args(args.config)
     register_coco(cfg.DATA.BASEDIR)  # add COCO datasets to the registry
