@@ -7,10 +7,10 @@ COPY ./modeling /opt/ml/code/modeling
 COPY ./utils /opt/ml/code/utils
 COPY ./convert_d2 /opt/ml/code/convert_d2
 COPY ./*.py /opt/ml/code/
-RUN mkdir -p /opt/ml/input/data
-ADD ./data /opt/ml/input/data
-RUN mkdir -p /opt/ml/model
-ADD ./COCO-MaskRCNN-R50FPN2x.npz /opt/ml/model/COCO-MaskRCNN-R50FPN2x.npz
+# RUN mkdir -p /opt/ml/input/data
+# ADD ./data /opt/ml/input/data
+# RUN mkdir -p /opt/ml/model
+# ADD ./COCO-MaskRCNN-R50FPN2x.npz /opt/ml/model/COCO-MaskRCNN-R50FPN2x.npz
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64/:/usr/local/cuda/lib/:/usr/local/cuda-10.0/compat/
 ENV SAGEMAKER_PROGRAM train.py
 CMD python /opt/ml/code/train.py --config DATA.BASEDIR=/opt/ml/input/data MODE_FPN=True \
